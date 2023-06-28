@@ -24,6 +24,7 @@ def handle_client(conn, addr):
                 break
             else:
                 single_broadcast(f'*** Wrong password ***', client_id)
+                continue
         except:
             continue
     print(f'New connection from {addr}, assigned client ID: {client_id}')
