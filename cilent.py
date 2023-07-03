@@ -5,7 +5,7 @@ print(
 '''
 This is a note tell you how to use the program
 1. Type in some word then press Enter to send message
-2. Send "#set-name#" + {your nickname} to change the random id to a certain nickname
+2. Send "#set_name#" + {your nickname} to change the random id to a certain nickname
 3. Send "#exit" to close the client
 '''
 )
