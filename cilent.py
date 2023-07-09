@@ -4,9 +4,11 @@ import threading
 print(
 '''
 This is a note tell you how to use the program
+0. Type in the password if needed, and you can ask admin to get the password
 1. Type in some word then press Enter to send message
 2. Send "#set_name#" + {your nickname} to change the random id to a certain nickname
-3. Send "#exit" to close the client
+3. Send "#userlist" to get user list and their IP
+4. Send "#exit" to close the client
 '''
 )
 
@@ -30,6 +32,7 @@ def receive_message():
                 print(message)
         except:
             # 如果出现异常，则关闭客户端连接
+            client.send('#exit'.encode('utf-8'))
             client.close()
             break
 
@@ -39,15 +42,23 @@ receive_thread.start()
 
 # 循环来发送消息
 while True:
-    # 输入消息
-    message = input()
+    try:
+        # 输入消息
+        message = input()
 
-    if message == '#exit':
-        # 如果输入内容为#exit，则关闭客户端连接
+        if message == '#exit':
+            client.send(message.encode('utf-8'))
+            # 如果输入内容为#exit，则关闭客户端连接
+            client.close()
+            break
+
+        # 发送消息给服务器
+        client.send(message.encode('utf-8'))
+    except:
+        # 如果出现异常，则关闭客户端连接
+        client.send('#exit'.encode('utf-8'))
         client.close()
         break
 
-    # 发送消息给服务器
-    client.send(message.encode('utf-8'))
 
 print('Client closed!')
